@@ -6,7 +6,7 @@ export interface Merchant {
   full_name: string;
   email: string;
   phone: string;
-  status: string;
+  status: "pending" | "active" | "rejected";
   created_at: string;
   updated_at: string;
 }

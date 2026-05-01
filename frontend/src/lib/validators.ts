@@ -3,7 +3,7 @@ import { z } from "zod";
 export const businessInfoSchema = z.object({
   business_name: z.string().min(1, "Business name is required").max(255),
   business_type: z.string().min(1, "Business type is required").max(100),
-  mcc_code: z.coerce
+  mcc_code: z
     .number({ error: "MCC code must be a number" })
     .int({ error: "MCC code must be a whole number" })
     .min(100, { error: "MCC code must be at least 100" })

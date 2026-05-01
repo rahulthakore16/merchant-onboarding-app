@@ -1,16 +1,34 @@
-import { BrowserRouter, Routes, Route } from "react-router"
+import { BrowserRouter, Routes, Route, useLocation } from "react-router"
+import { Toaster } from "sonner"
+import { AnimatePresence } from "framer-motion"
 import LandingPage from "./pages/LandingPage"
 import OnboardPage from "./pages/OnboardPage"
 import MerchantsPage from "./pages/MerchantsPage"
 
-function App() {
+function AnimatedRoutes() {
+  const location = useLocation()
+  
   return (
-    <BrowserRouter>
-      <Routes>
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
         <Route path="/" element={<LandingPage />} />
         <Route path="/onboard" element={<OnboardPage />} />
         <Route path="/merchants" element={<MerchantsPage />} />
       </Routes>
+    </AnimatePresence>
+  )
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AnimatedRoutes />
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          className: "font-sans text-sm",
+        }}
+      />
     </BrowserRouter>
   )
 }
