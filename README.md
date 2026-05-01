@@ -100,6 +100,17 @@ docker compose up --build
 
 Visit [http://localhost](http://localhost) once all containers are ready. The backend API docs are at [http://localhost/docs](http://localhost/docs).
 
+### Production on AWS Ubuntu with SSL
+
+Use the AWS-specific compose file plus host Nginx and Certbot:
+
+```bash
+cp .env.aws.example .env.aws
+docker compose --env-file .env.aws -f docker-compose.aws.yml up -d --build
+```
+
+Full instructions are in `deploy/aws-ubuntu-ssl.md`.
+
 ### Option B: Manual Setup
 
 **1. Start PostgreSQL**
