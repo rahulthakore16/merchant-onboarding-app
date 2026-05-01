@@ -39,9 +39,30 @@ export function useMerchants() {
   }, []);
 
   useEffect(() => {
-    fetchMerchants(0);
-    return () => abortRef.current?.abort();
-  }, [fetchMerchants]);
+    const controller = new AbortController();
+    abortRef.current = controller;
+
+    api
+      .get<MerchantListResponse>("/merchants", {
+        params: { limit: PAGE_SIZE, offset: 0 },
+        signal: controller.signal,
+      })
+      .then(({ data }) => {
+        setItems(data.items);
+        setTotal(data.total);
+        setOffset(data.offset);
+        setHasMore(data.has_more);
+      })
+      .catch((err) => {
+        if (axios.isCancel(err)) return;
+        setError("Failed to load merchants. Please try again.");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+
+    return () => controller.abort();
+  }, []);
 
   const nextPage = () => {
     if (hasMore) fetchMerchants(offset + PAGE_SIZE);
