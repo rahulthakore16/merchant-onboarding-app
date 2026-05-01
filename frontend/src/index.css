@@ -10,6 +10,19 @@
   --color-green: #00c220;
   --color-red: #c70421;
 
+  --color-primary: #1c1c1c;
+  --color-primary-foreground: #f9f9f9;
+  --color-secondary: #f5f5f5;
+  --color-secondary-foreground: #1c1c1c;
+  --color-destructive: #c70421;
+  --color-destructive-foreground: #f9f9f9;
+  --color-accent: #f5f5f5;
+  --color-accent-foreground: #1c1c1c;
+  --color-ring: #1c1c1c;
+  --color-input: #ededed;
+  --color-background: #f9f9f9;
+  --color-foreground: #1c1c1c;
+
   --font-sans: 'Inter', 'Inter Display', sans-serif;
   --font-heading: 'DM Sans', sans-serif;
   --font-serif: 'DM Serif Text', serif;

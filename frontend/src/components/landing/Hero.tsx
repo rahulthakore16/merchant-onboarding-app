@@ -1,5 +1,6 @@
 import { Link } from "react-router"
 import { Button } from "@/components/ui/button"
+import { motion } from "framer-motion"
 
 export default function Hero() {
   return (
@@ -21,12 +22,14 @@ export default function Hero() {
         <div className="mt-16 flex flex-col gap-12 md:mt-24 md:flex-row md:justify-between">
           <div className="max-w-md">
             <Link to="/onboard">
-              <Button variant="outline" className="rounded-full border-2 border-dark px-8 text-dark hover:bg-dark hover:text-page">
-                <span className="relative">
-                  START ONBOARDING
-                  <div className="absolute -left-4 -right-4 -top-4 -bottom-4 animate-spin-slow rounded-full border border-dark opacity-50" />
-                </span>
-              </Button>
+              <motion.div layoutId="cta-card" className="inline-block">
+                <Button variant="outline" className="rounded-full border-2 border-dark px-8 text-dark hover:bg-dark hover:text-page">
+                  <span className="relative">
+                    START ONBOARDING
+                    <div className="absolute -left-4 -right-4 -top-4 -bottom-4 animate-spin-slow rounded-full border border-dark opacity-50" />
+                  </span>
+                </Button>
+              </motion.div>
             </Link>
             <p className="mt-8 text-sm leading-relaxed text-muted uppercase tracking-wide">
               We simplify merchant registration
