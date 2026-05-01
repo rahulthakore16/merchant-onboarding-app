@@ -6,7 +6,7 @@ import {
   flexRender,
 } from "@tanstack/react-table";
 import { MeshGradient } from "@paper-design/shaders-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useMerchants } from "@/hooks/useMerchants";

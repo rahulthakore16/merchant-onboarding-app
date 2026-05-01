@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router"
 import { Toaster } from "sonner"
 import { AnimatePresence } from "framer-motion"
+import ErrorBoundary from "./components/ErrorBoundary"
 import LandingPage from "./pages/LandingPage"
 import OnboardPage from "./pages/OnboardPage"
 import MerchantsPage from "./pages/MerchantsPage"
@@ -21,15 +22,17 @@ function AnimatedRoutes() {
 
 function App() {
   return (
-    <BrowserRouter>
-      <AnimatedRoutes />
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          className: "font-sans text-sm",
-        }}
-      />
-    </BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <AnimatedRoutes />
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            className: "font-sans text-sm",
+          }}
+        />
+      </BrowserRouter>
+    </ErrorBoundary>
   )
 }
 
