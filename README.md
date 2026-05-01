@@ -18,6 +18,7 @@ A full-stack merchant registration application with a multi-step form and mercha
 ## Prerequisites
 
 - Python 3.12+
+- Node.js 18+
 - Docker & Docker Compose (for PostgreSQL)
 
 ## Quick Start
@@ -55,7 +56,22 @@ alembic upgrade head
 uvicorn app.main:app --reload --port 8000
 ```
 
-### 6. Open API docs
+### 6. Set up the frontend
+
+```bash
+cd frontend
+npm install
+```
+
+### 7. Start the frontend
+
+```bash
+npm run dev
+```
+
+The app runs at [http://localhost:5173](http://localhost:5173).
+
+### 8. Open API docs
 
 Visit [http://localhost:8000/docs](http://localhost:8000/docs) for interactive Swagger UI.
 
