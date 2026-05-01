@@ -32,7 +32,6 @@ export function useMerchants() {
       setHasMore(data.has_more);
     } catch (err) {
       if (axios.isCancel(err)) return;
-      console.error("Failed to fetch merchants:", err);
       setError("Failed to load merchants. Please try again.");
     } finally {
       setIsLoading(false);
