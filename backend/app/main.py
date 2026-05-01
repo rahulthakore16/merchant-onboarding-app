@@ -1,3 +1,4 @@
+import time
 from contextlib import asynccontextmanager
 
 import structlog
@@ -9,6 +10,9 @@ from app.api.v1.router import api_v1_router
 from app.core.config import settings
 from app.core.database import engine, async_session_factory
 from app.core.exception_handlers import register_exception_handlers
+from app.core.middleware import RequestLoggingMiddleware
+
+_start_time = time.time()
 
 structlog.configure(
     processors=[
@@ -40,12 +44,24 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.add_middleware(RequestLoggingMiddleware)
+
 register_exception_handlers(app)
 app.include_router(api_v1_router, prefix=settings.API_V1_PREFIX)
 
 
 @app.get("/health", tags=["System"])
 async def health_check():
-    async with async_session_factory() as session:
-        await session.execute(text("SELECT 1"))
-    return {"status": "healthy"}
+    db_status = "connected"
+    try:
+        async with async_session_factory() as session:
+            await session.execute(text("SELECT 1"))
+    except Exception:
+        db_status = "disconnected"
+
+    return {
+        "status": "healthy" if db_status == "connected" else "unhealthy",
+        "uptime_seconds": round(time.time() - _start_time, 1),
+        "database": db_status,
+        "version": "1.0.0",
+    }

@@ -18,15 +18,25 @@ A full-stack merchant registration application with a multi-step form and mercha
 ## Prerequisites
 
 - Python 3.12+
-- Node.js 18+
+- Node.js 20+
 - Docker & Docker Compose (for PostgreSQL)
 
 ## Quick Start
 
-### 1. Start PostgreSQL
+### Option A: Full-stack with Docker (recommended)
 
 ```bash
-docker-compose up -d
+docker-compose up --build
+```
+
+This starts PostgreSQL, the backend (port 8000), and the frontend (port 80) in one command. Visit [http://localhost](http://localhost) once all containers are ready.
+
+### Option B: Manual setup
+
+#### 1. Start PostgreSQL
+
+```bash
+docker-compose up -d postgres
 ```
 
 ### 2. Set up the backend
@@ -107,15 +117,26 @@ All errors follow a consistent structure:
 }
 ```
 
+## Seed Sample Data
+
+```bash
+cd backend
+python -m seed
+```
+
+Inserts 5 sample merchants (coffee shop, online store, restaurant, boutique, gym) so the list page isn't empty on first load. Skips if data already exists.
+
 ## Running Tests
 
 ```bash
-# Ensure PostgreSQL is running, then create the test database:
+# Backend — ensure PostgreSQL is running, then create the test database:
 docker exec -it merchant_db psql -U postgres -c "CREATE DATABASE merchant_test_db;"
-
-# Run tests
 cd backend
 pytest -v
+
+# Frontend — unit tests for validation schemas and components:
+cd frontend
+npm test
 ```
 
 ## Design Decisions
@@ -130,6 +151,17 @@ pytest -v
 8. **Merchant status field** — Domain-aware modeling (`pending`, `active`, `rejected`) beyond minimum requirements.
 9. **Pydantic settings** — Environment-based configuration with `.env` file support.
 10. **Docker Compose** — One-command database setup for reviewers.
+
+## Next Steps
+
+If this were a production system, the following enhancements would be prioritized:
+
+1. **Authentication & Authorization** — JWT-based auth with role-based access control for merchant management.
+2. **Rate Limiting** — Per-IP and per-endpoint rate limits to prevent abuse.
+3. **E2E Tests** — Playwright tests covering the full onboarding flow and merchant list.
+4. **Deployment** — Automated deployment to a cloud provider with staging and production environments.
+5. **Monitoring & Alerting** — Application performance monitoring with structured log aggregation.
+6. **Merchant Status Workflow** — Admin interface to review, approve, or reject pending merchants.
 
 ## Project Structure
 
